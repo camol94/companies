@@ -1,0 +1,124 @@
+$primary-color: #fff;
+$secondary-color: #000;
+$accent-color: #ccc;
+$border-default: 1px solid $accent-color;
+
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  color: $secondary-color;
+}
+
+.table-container {
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+  margin-top: 8px;
+}
+
+.button-primary {
+  border: $border-default;
+  color: $secondary-color;
+  padding: 8px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: no-drop;
+  }
+}
+table {
+  width: 100%;
+  min-width: 1000px;
+  border: $border-default;
+  border-spacing: 0;
+  overflow-y: auto;
+  position: relative;
+
+  th {
+    text-align: left;
+    cursor: pointer;
+    padding: 8px;
+    position: sticky;
+    top: 0;
+    background: $primary-color;
+
+    span {
+      visibility: hidden;
+      display: inline-block;
+    }
+    &.desc {
+      span {
+        visibility: visible;
+        transform: translate(0, 15%) rotate(-180deg)
+      }
+    }
+    &.asc {
+      span {
+        visibility: visible;
+      }
+    }
+  }
+  tbody {
+    tr {
+      &:nth-child(odd) {
+        background: $accent-color;
+      }
+    }
+    td {
+      padding: 8px;
+    }
+  }
+}
+
+.filter-panel {
+  input {
+    border: $border-default;
+    padding: 8px;
+    color: $secondary-color;
+
+    &::placeholder {
+      color: $secondary-color;
+    }
+  }
+
+  .-clear {
+    margin-left: 8px;
+  }
+}
+
+.paginator {
+  display: grid;
+  margin-top: 8px;
+  padding: 0 8px;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  grid-auto-flow: row dense;
+  grid-row-gap: 8px;
+  border: $border-default;
+  padding: 8px;
+
+  .-buttons {
+    grid-column: auto/span 3;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-gap: 8px;
+
+    button {
+      font-weight: 700;
+
+      &:disabled {
+        font-weight: 300;
+      }
+    }
+  }
+  .-select {
+    text-align: right;
+
+    select {
+      border: $border-default;
+      padding: 8px;
+    }
+  }
+}
+
+

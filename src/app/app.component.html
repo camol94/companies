@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="filter-panel">
+    <input type="text" [(ngModel)]="searchValue" placeholder="Filter..."><button class='button-primary -clear'(click)="searchValue = ''">Clear</button>
+  </div>
+
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th *ngFor="let item of tableHead" (click)="sortItems(item, item.sort, item.order, $event)">{{item.name}}<span>↑</span></th>
+        </tr>
+      </thead>
+
+      <tbody *ngIf="companies">
+      <tr *ngFor="let item of companiesFiltered | slice:startItems:endItems;">
+        <td>
+          {{item.id}}
+        </td>
+        <td>
+          {{item.name}}
+        </td>
+        <td>
+          {{item.city}}
+        </td>
+        <td>
+          {{item.totalIncome}}
+        </td>
+        <td>
+          {{item.averageIncome}}
+        </td>
+        <td>
+          {{item.lastIncome}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="companies" class="paginator">
+    <div class="-info">
+      {{startItems+1}} - {{endItems}} of {{pager.totalItems}}.
+    </div>
+    <div class="-buttons">
+      <button class="button-primary" [disabled]="pageValue == 1"  (click)="changePage('first')"><<<</button>
+      <button class="button-primary" [disabled]="pageValue == 1" (click)="changePage('prev')"><</button>
+      <button class="button-primary" [disabled]="pageValue == pager.totalPages" (click)="changePage('next')">></button>
+      <button class="button-primary" [disabled]="pageValue == pager.totalPages" (click)="changePage('last')">>>></button>
+    </div>
+    <div class="-select">
+      Items per page:
+      <select (change)="changeItemsPerPage()" [(ngModel)]="itemsPerPage">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+  </div>
+</div>
