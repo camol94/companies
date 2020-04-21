@@ -1,6 +1,6 @@
 <div class="container">
   <div class="filter-panel">
-    <input type="text" [(ngModel)]="searchValue" placeholder="Filter..."><button class='button-primary -clear'(click)="searchValue = ''">Clear</button>
+    <input type="text" [(ngModel)]="searchValue" placeholder="Filter..."><button class='button-primary -clear' (click)="searchValue = ''">Clear</button>
   </div>
 
 
@@ -8,38 +8,43 @@
     <table>
       <thead>
         <tr>
-          <th *ngFor="let item of tableHead" (click)="sortItems(item, item.sort, item.order, $event)">{{item.name}}<span>↑</span></th>
+          <th *ngFor="let item of tableHead" (click)="sortItems(item, $event)">{{item.name}}<span>↑</span></th>
         </tr>
       </thead>
 
       <tbody *ngIf="companies">
-      <tr *ngFor="let item of companiesFiltered | slice:startItems:endItems;">
-        <td>
-          {{item.id}}
-        </td>
-        <td>
-          {{item.name}}
-        </td>
-        <td>
-          {{item.city}}
-        </td>
-        <td>
-          {{item.totalIncome}}
-        </td>
-        <td>
-          {{item.averageIncome}}
-        </td>
-        <td>
-          {{item.lastIncome}}
-        </td>
-      </tr>
+        <tr *ngFor="let item of companiesFiltered | slice:startItems:endItems;">
+          <td>
+            {{item.id}}
+          </td>
+          <td>
+            {{item.name}}
+          </td>
+          <td>
+            {{item.city}}
+          </td>
+          <td>
+            {{item.totalIncome}}
+          </td>
+          <td>
+            {{item.averageIncome}}
+          </td>
+          <td>
+            {{item.lastIncome}}
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
-
-  <div *ngIf="companies" class="paginator">
-    <div class="-info">
-      {{startItems+1}} - {{endItems}} of {{pager.totalItems}}.
+  <div *ngIf="companiesFiltered && companiesFiltered.length == 0" class="error-box">
+    No matching results...
+  </div>
+  <div *ngIf="companiesFiltered" class="paginator">
+    <div class="-info" *ngIf="companiesFiltered.length > 1">
+      {{startItems+1}} -
+        <ng-container *ngIf="pager.totalItems > endItems; else elseBlock">{{ endItems }}</ng-container>
+        <ng-template #elseBlock>{{pager.totalItems}}</ng-template>
+      of {{pager.totalItems}}.
     </div>
     <div class="-buttons">
       <button class="button-primary" [disabled]="pageValue == 1"  (click)="changePage('first')"><<<</button>

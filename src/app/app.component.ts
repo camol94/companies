@@ -106,14 +106,14 @@ export class AppComponent implements OnInit {
     return this.countIncome(lastMonthIncomes);
   }
 
-  sortItems(column, sort, order, e) {
+  sortItems(column, e) {
     e.target.parentElement.querySelectorAll( 'th').forEach( d =>
       d.classList.remove( 'asc', 'desc' )
     );
-    if(order === 'ASC') {
+    if (column.order === 'ASC') {
       column.order = 'DESC';
       e.target.classList.add( 'desc' );
-      if (sort === 'number') {
+      if (column.sort === 'number') {
         this.companiesFiltered = this.companiesFiltered.sort((a, b) => b[column.id] - a[column.id]);
       } else {
         this.companiesFiltered = this.companiesFiltered.sort((a, b) => a[column.id] < b[column.id] ? 1 : -1);
@@ -121,7 +121,7 @@ export class AppComponent implements OnInit {
     } else {
       e.target.classList.add( 'asc' );
       column.order = 'ASC';
-      if (sort === 'number') {
+      if (column.sort === 'number') {
         this.companiesFiltered = this.companiesFiltered.sort((a, b) => a[column.id] - b[column.id]);
       } else {
         this.companiesFiltered = this.companiesFiltered.sort((a, b) => a[column.id] > b[column.id] ? 1 : -1);
@@ -160,7 +160,7 @@ export class AppComponent implements OnInit {
       page = this.pageValue - 1;
     } else if (value === 'first') {
       page = 1;
-    } else if(value === 'last') {
+    } else if (value === 'last') {
       page = this.pager.totalPages;
     } else {
       page = this.pageValue;
@@ -176,7 +176,7 @@ export class AppComponent implements OnInit {
 
   set searchValue(value) {
     this._searchValue = value;
-    this.companiesFiltered = this.filterCompanies(value)
+    this.companiesFiltered = this.filterCompanies(value);
     this.getPager();
     this.pageValue = 1;
   }
