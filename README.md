@@ -12,7 +12,7 @@ Application have also pagination where u can change pages and select how much it
 
 ## Development server
 
-Run `npm install` for install dependencies then run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm ci` for install dependencies then run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Build
 
